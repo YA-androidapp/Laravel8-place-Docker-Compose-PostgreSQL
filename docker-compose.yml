@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  dbs:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: "dbc"
+    environment:
+      POSTGRES_USER: YOUR_USERNAME
+      POSTGRES_PASSWORD: YOUR_PASSWORD
+      POSTGRES_DB: YOUR_DATABASE
+      TZ: "Asia/Tokyo"
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres/sql:/docker-entrypoint-initdb.d
+
+volumes:
+  pgdata:
+    driver: "local"
